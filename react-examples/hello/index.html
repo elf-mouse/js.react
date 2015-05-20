@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../../build/react.js"></script>
+    <script src="../../build/JSXTransformer.js"></script>
+  </head>
+  <body>
+    <div id="helloExample"></div>
+    <script type="text/jsx">
+      var mountNode = document.getElementById('helloExample');
+
+      var HelloMessage = React.createClass({
+        render: function() {
+          return <div>Hello {this.props.name}</div>;
+        }
+      });
+
+      React.render(<HelloMessage name="John" />, mountNode);
+    </script>
+  </body>
+</html>
