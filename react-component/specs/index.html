@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../../build/react.js"></script>
+    <script src="../../build/JSXTransformer.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/jsx">
+      var mountNode = document.getElementById('example');
+
+      var timer = {
+        tick: function() {
+          this.setState({secondsElapsed: this.state.secondsElapsed + 1});
+        },
+        componentDidMount: function() {
+          this.interval = setInterval(this.tick, 1000);
+        },
+        componentWillUnmount: function() {
+          clearInterval(this.interval);
+        }
+      };
+
+      var MyComponent = React.createClass({
+        displayName: 'HelloWorld',
+        statics: {
+          plus: function(a, b) {
+            return a + b;
+          }
+        },
+        mixins: [timer],
+        propTypes: {
+          value: React.PropTypes.string
+        },
+        getDefaultProps: function() {
+          return {
+            value: 'World'
+          };
+        },
+        getInitialState: function() {
+          return {
+            secondsElapsed: 0
+          }
+        },
+        render: function() {
+          return (
+            <div>
+              <h1>Hello {this.props.value}</h1>
+              <p>Seconds Elapsed: {this.state.secondsElapsed}</p>
+            </div>
+          );
+        }
+      });
+
+      React.render(<MyComponent value="React" />, mountNode);
+
+      console.log('1 + 2 = ' + MyComponent.plus(1, 2));
+    </script>
+  </body>
+</html>

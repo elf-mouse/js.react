@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../../build/react.js"></script>
+    <script src="../../build/JSXTransformer.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/jsx">
+      var mountNode = document.getElementById('example');
+
+      var mounting = {
+        componentWillMount: function() {
+          console.info('componentWillMount');
+        },
+        componentDidMount: function() {
+          console.info('componentDidMount');
+          console.log(React.findDOMNode(this));
+          this.interval = setInterval(this.tick, 1000);
+        }
+      };
+
+      var updating = {
+        componentWillReceiveProps: function(nextProps) {
+          console.info('componentWillReceiveProps');
+          console.log(nextProps.likeCount + ' : ' + this.props.likeCount);
+        },
+        shouldComponentUpdate: function(nextProps, nextState) {
+          console.info('shouldComponentUpdate');
+          console.log(nextProps.id + ' : ' + this.props.id);
+          return true;
+        },
+        componentWillUpdate: function(nextProps, nextState) {
+          console.info('componentWillUpdate');
+        },
+        componentDidUpdate: function(prevProps, prevState) {
+          console.info('componentDidUpdate');
+        }
+      };
+
+      var unmounting = {
+        componentWillUnmount: function() {
+          console.info('componentWillUnmount');
+          clearInterval(this.interval);
+        }
+      };
+
+      var MyComponent = React.createClass({
+        mixins: [mounting, updating, unmounting],
+        propTypes: {
+          id: React.PropTypes.number,
+          likeCount: React.PropTypes.number
+        },
+        getDefaultProps: function() {
+          return {
+            id: 62,
+            likeCount: 100
+          };
+        },
+        getInitialState: function() {
+          return {
+            secondsElapsed: 0
+          }
+        },
+        tick: function() {
+          this.setState({secondsElapsed: this.state.secondsElapsed + 1});
+          this.setProps({likeCount: this.props.likeCount + 1});
+        },
+        stop: function() {
+          clearInterval(this.interval);
+        },
+        render: function() {
+          return (
+            <div>Test: {this.state.secondsElapsed} <button onClick={this.stop}>Stop</button></div>
+          );
+        }
+      });
+
+      React.render(<MyComponent />, mountNode);
+    </script>
+  </body>
+</html>
