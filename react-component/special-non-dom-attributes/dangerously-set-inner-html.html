@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../../build/react.js"></script>
+    <script src="../../build/JSXTransformer.js"></script>
+  </head>
+  <body>
+    <div id="example1"></div>
+    <div id="example2"></div>
+    <script type="text/jsx">
+      var mountNode1 = document.getElementById('example1');
+      var mountNode2 = document.getElementById('example2');
+
+      function createMarkup() {
+        return {
+          __html: '<h1>Hello &middot; World</h1>'
+        };
+      }
+
+      React.render(<div>{createMarkup()}</div>, mountNode1);
+      React.render(<div dangerouslySetInnerHTML={createMarkup()} />, mountNode2);
+    </script>
+  </body>
+</html>

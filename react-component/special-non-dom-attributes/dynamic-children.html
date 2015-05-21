@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../../build/react.js"></script>
+    <script src="../../build/JSXTransformer.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/jsx">
+      var mountNode = document.getElementById('example');
+
+      var ListItemWrapper = React.createClass({
+        render: function() {
+          return <li>{this.props.data.text}</li>;
+        }
+      });
+      var MyComponent = React.createClass({
+        render: function() {
+          return (
+            <ul>
+              {this.props.results.map(function(result) {
+                 return <ListItemWrapper key={result.id} data={result}/>;
+              })}
+            </ul>
+          );
+        }
+      });
+
+      var results = [
+        {
+          id: 11,
+          text: 'a'
+        },
+        {
+          id: 22,
+          text: 'bb'
+        },
+        {
+          id: 33,
+          text: 'ccc'
+        }
+      ];
+
+      React.render(<MyComponent results={results} />, mountNode);
+    </script>
+  </body>
+</html>
