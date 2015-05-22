@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <script src="../../build/react.js"></script>
+    <script src="../../build/JSXTransformer.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/jsx" src="util.js"></script>
+    <script type="text/jsx;harmony=true" src="focus-events.js"></script>
+    <script type="text/jsx;harmony=true" src="form-events.js"></script>
+    <script type="text/jsx;harmony=true" src="touch-events.js"></script>
+    <script type="text/jsx;harmony=true" src="ui-events.js"></script>
+    <script type="text/jsx">
+      var mountNode = document.getElementById('example');
+
+      var MyComponent = React.createClass({
+        render: function() {
+          return (
+            <div>
+              <h1>Event System</h1>
+              <FocusComponent />
+              <FormComponent />
+              <TouchComponent />
+              <UIComponent />
+            </div>
+          );
+        }
+      });
+
+      React.render(<MyComponent />, mountNode);
+    </script>
+  </body>
+</html>
