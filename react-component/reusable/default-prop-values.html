@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../../build/react.js"></script>
+    <script src="../../build/JSXTransformer.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/jsx">
+      var mountNode = document.getElementById('example');
+
+      var ComponentWithDefaultProps = React.createClass({
+        getDefaultProps: function() {
+          return {
+            value: 'default value'
+          };
+        },
+        render: function() {
+          return <div>{this.props.value}</div>;
+        }
+      });
+
+      React.render(<ComponentWithDefaultProps />, mountNode);
+      console.log(ComponentWithDefaultProps.getDefaultProps());
+    </script>
+  </body>
+</html>

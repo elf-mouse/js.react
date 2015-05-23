@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../../build/react.js"></script>
+    <script src="../../build/JSXTransformer.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/jsx">
+      var mountNode = document.getElementById('example');
+
+      var MyComponent = React.createClass({
+        propTypes: {
+          children: React.PropTypes.element.isRequired
+        },
+        render: function() {
+          return (
+            <div>
+              {this.props.children} // This must be exactly one element or it will throw.
+            </div>
+          );
+        }
+      });
+
+      var myElement = React.createElement('h1', null, 'Single Child');
+      React.render(<MyComponent>{myElement}</MyComponent>, mountNode);
+    </script>
+  </body>
+</html>
