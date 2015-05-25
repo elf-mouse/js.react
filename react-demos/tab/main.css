@@ -1,0 +1,12 @@
+.item {
+  display: inline-block;
+  margin-right: 1px;
+  padding: 5px;
+  border: 1px solid;
+}
+
+.item.active {
+  color: white;
+  border-color: white;
+  background: black;
+}
