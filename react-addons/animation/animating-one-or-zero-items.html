@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../../build/react-with-addons.js"></script>
+    <script src="../../build/JSXTransformer.js"></script>
+    <style>
+    .example-appear {
+      opacity: 0.01;
+      transition: opacity .5s ease-in;
+    }
+    .example-appear.example-appear-active {
+      opacity: 1;
+    }
+    </style>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/jsx">
+      var mountNode = document.getElementById('example');
+
+      var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+
+      var ImageCarousel = React.createClass({
+        propTypes: {
+          imageSrc: React.PropTypes.string.isRequired
+        },
+        render: function() {
+          return (
+            <div>
+              <ReactCSSTransitionGroup transitionName="carousel">
+                <img src={this.props.imageSrc} key={this.props.imageSrc} />
+              </ReactCSSTransitionGroup>
+            </div>
+          );
+        }
+      });
+
+      React.render(<ImageCarousel imageSrc="../../img/react.svg" />, mountNode);
+    </script>
+  </body>
+</html>

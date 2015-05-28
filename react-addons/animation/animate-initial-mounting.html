@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../../build/react-with-addons.js"></script>
+    <script src="../../build/JSXTransformer.js"></script>
+    <style>
+    .example-appear {
+      opacity: 0.01;
+      transition: opacity .5s ease-in;
+    }
+    .example-appear.example-appear-active {
+      opacity: 1;
+    }
+    </style>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/jsx">
+      var mountNode = document.getElementById('example');
+
+      var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+
+      var MyComponent = React.createClass({
+        render: function() {
+          return (
+            <ReactCSSTransitionGroup transitionName="example" transitionAppear="true">
+              <h1>Fading at Initial Mount</h1>
+            </ReactCSSTransitionGroup>
+          );
+        }
+      });
+
+      React.render(<MyComponent />, mountNode);
+    </script>
+  </body>
+</html>
