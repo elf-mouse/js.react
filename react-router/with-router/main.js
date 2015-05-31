@@ -29,7 +29,11 @@ var Inbox = React.createClass({
     return (
       <div>
         <h2>Inbox</h2>
-        <a href="#inbox/message/Jkei3c32">Jkei3c32</a>
+        <ul>
+          <li><a href="#inbox/messages/hello">Hello</a></li>
+          <li><a href="#inbox/messages/world">World</a></li>
+        </ul>
+        <RouteHandler/>
       </div>
     )
   }
@@ -42,23 +46,16 @@ var Home = React.createClass({
 });
 
 var Message = React.createClass({
-  /*getInitialState: function() {
-    return {
-      message: ''
-    };
-  },*/
   componentDidMount: function () {
     // from the path `/inbox/messages/:id`
-    console.log(this.context.router.getCurrentParams());
     var id = this.props.params.id;
-    console.log(this.props.params);
+    console.log(id);
     //fetchMessage(id, function (err, message) {
       //this.setState({ message: message });
     //})
   },
   render: function () {
-    console.log(this.context.router.getCurrentParams());
-    return <h3>Message</h3>;
+    return <h3>Message: {this.props.params.id}</h3>;
   }
 });
 
@@ -78,7 +75,7 @@ var App = React.createClass({
           <li><a href="#inbox">Inbox</a></li>
           <li><a href="#about">About</a></li>
         </ul>
-        <RouteHandler {...this.props}/>
+        <RouteHandler/>
       </div>
     )
   }
@@ -86,20 +83,19 @@ var App = React.createClass({
 
 // declare our routes and their hierarchy
 var routes = (
-  <Route path="/" handler={App}>
+  <Route handler={App}>
     <DefaultRoute handler={Home}/>
     <Route path="about" handler={About}/>
     <Route path="about/company" handler={Company}/>
-    <Route path="/inbox" handler={Inbox}>
-      <Route name="message" path="/message/:id" handler={Message}/>
-      <Redirect from="/messages/:id" to="message"/>
-      /*<Route path="/archive/messages/:id" handler={Message}/>*/
+    <Route path="inbox" handler={Inbox}>
+      <Route name="message" path=":messageId" handler={Message}/>
+      <Route path="messages/:id" handler={Message}/>
+      <Route path="/archive/messages/:id" handler={Message}/>
     </Route>
     <NotFoundRoute handler={NotFound}/>
   </Route>
 );
 
 Router.run(routes, Router.HashLocation, (Root, state) => {
-  var params = state.params;
-  React.render(<Root params={params}/>, document.body);
+  React.render(<Root/>, document.body);
 });
