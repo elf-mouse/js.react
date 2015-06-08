@@ -26,19 +26,21 @@ var Tab = React.createClass({
       activeTabIndex: tabIndex
     });
   },
-  render: function() {
-    var tabIndex = this.state.activeTabIndex;
+  getItems: function() {
+    var activeTabIndex = this.state.activeTabIndex;
     var changeTab = this.changeTab;
+    return this.props.list.map(function(value, key) {
+      return <Item key={key}
+                   name={value}
+                   tabIndex={key}
+                   active={key===activeTabIndex}
+                   changeTab={changeTab}/>
+    });
+  },
+  render: function() {
     return (
       <ul className="list">
-        {this.props.list.map(function(value, key) {
-          return <Item key={key}
-                       name={value}
-                       tabIndex={key}
-                       active={key===tabIndex}
-                       changeTab={changeTab}
-                       />
-        })}
+        {this.getItems()}
       </ul>
     );
   }
