@@ -1,0 +1,18 @@
+{
+  "name": "less-react",
+  "version": "0.0.0",
+  "devDependencies": {
+    "css-loader": "^0.15.1",
+    "gulp": "^3.9.0",
+    "gulp-util": "^3.0.5",
+    "gulp-webpack-build": "^0.11.1",
+    "jsx-loader": "^0.13.2",
+    "less": "^2.5.1",
+    "less-loader": "^2.2.0",
+    "moment": "^2.10.3",
+    "node-libs-browser": "^0.5.2",
+    "style-loader": "^0.12.3",
+    "webpack": "^1.9.11",
+    "webpack-config": "^0.7.0"
+  }
+}
