@@ -1,8 +1,31 @@
 var express = require('express');
 var app = express();
+var webpack = require('webpack');
+var WebpackDevServer = require('webpack-dev-server');
+var config = require('./webpack.config');
+
+app.get('/bundle.js', function(req, res) {
+  res.redirect('//localhost:9090/build/bundle.js');
+});
 
 app.get('/', function(req, res) {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/build/index.html');
+});
+
+app.use(express.static(__dirname + '/build/'));
+
+new WebpackDevServer(webpack(config), {
+  publicPath: config.output.publicPath,
+  noInfo: true,
+  hot: true
+}).listen(9090, 'localhost', function(err, result) {
+  if (err) {
+    console.log(err);
+  }
+});
+
+var server = app.listen(8080, function() {
+  console.log('Listening at http://localhost:%s', server.address().port);
 });
 
 var dogs = [{
@@ -24,12 +47,4 @@ app.put('/api/v1/dog', function(req, res) {
   var max = 1;
   var x = Math.floor(Math.random() * (max - min + 1)) + min;
   res.send(dogs[x]);
-});
-
-app.use(express.static('./'));
-
-var server = app.listen(8080, function() {
-  var host = server.address().address;
-  var port = server.address().port;
-  console.log('Example app listening at http://%s:%s', host, port);
 });
